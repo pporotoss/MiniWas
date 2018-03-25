@@ -19,9 +19,9 @@ public class WasMain {
                 Socket client = listener.accept();
                 System.out.println("Client 접속!!");
                 
-                new Thread(() -> {
-                    handleSocket(client);
-                }).run();
+                new Thread(() ->
+                    handleSocket(client)
+                ).run();
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -41,16 +41,14 @@ public class WasMain {
             if(isRootPath(fileName)) {
                 fileName = "index.html";
             }
-            
-            File responseFile = createResponseFile(fileName);
     
+            String contentType = chooseContentType(request.getPath());
             String status = "200 OK";
+            File responseFile = createResponseFile(fileName);
             if(!responseFile.exists()) {
                 status = "404 Not Found";
                 responseFile = createResponseFile("404.html");
             }
-    
-            String contentType = chooseContentType(request.getPath());
             
             writeResponseHeaders(pw, contentType, status, responseFile.length());
     
