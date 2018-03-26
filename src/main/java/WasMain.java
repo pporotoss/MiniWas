@@ -21,7 +21,7 @@ public class WasMain {
                 
                 new Thread(() ->
                     handleSocket(client)
-                ).run();
+                ).start();
             }
         } catch (IOException e) {
             e.printStackTrace();
